@@ -1,0 +1,6 @@
+FBO name
+mobile number
+address
+pincode
+email address
+password
