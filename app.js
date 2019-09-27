@@ -7,7 +7,7 @@ const passport = require("passport");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
 const _ = require("lodash");
-const socketio = require("socketio");
+//const socketio = require("socketio");
 
 const app = express();
 
@@ -18,7 +18,8 @@ app.use(express.static(__dirname+'/public'));
 mongoose.set('useNewUrlParser', true); //remove deprecation warning
 mongoose.set('useFindAndModify', false); //remove deprecation warning
 mongoose.set('useCreateIndex', true); //remove deprecation warning
-mongoose.connect("mongodb://localhost:27017/biofuel"); //connects to mongodb
+mongoose.set('useUnifiedTopology', true); //remove deprecation warning
+mongoose.connect("mongodb://localhost:27017/chemicalx"); //connects to mongodb
 
 const userSchema =new mongoose.Schema({
     fboName : String,
@@ -34,10 +35,12 @@ userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("userAccount", userSchema);
 
 app.get("/",(req,res)=>{
-    res.render("Hello");
+    res.render("index");
+})
+app.get("/login",(req,res)=>{
+    res.render("login");
 });
-
 
 app.listen(3000, ()=>{
-    console.log("Server is listening at port 3000");
-});
+    console.log("Server running at port 3000");
+})
