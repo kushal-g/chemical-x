@@ -2,20 +2,28 @@
 
 <!-- Complete dont have an account? Sign in link-->
 
+<link rel="stylesheet" href="css/heading.css">
+<h1 class="heading"><a href="/" class="heading-link">CHEMICAL X</a></h1>
+
 <div class="login mx-auto">
-  <div>
-    <h3>Hope you're doing great today!</h3>
+  <div class="lead">
+    Hope you're doing great today!
   </div>
   <div class="container-fluid mt-5 form-wrapper">
     <div class="row">
         <div class="col sign-in-heading">
             <h4>Log In!</h4>
         </div>
-        
     </div>
     <div class="row">
       <div class="col">
-        <form action="/login" method="post">
+        <% if(admin){ %>
+            <form action="/admin" method="post">
+        <%  }else{  %>
+            <form action="/login" method="post">
+        <% } %>
+      
+        
           <input class="form-control" type="email" placeholder="Email" name="username">
           <input class="form-control" type="password" placeholder="Password" name="password">
           <div class="container-fluid pl-0">
@@ -23,11 +31,14 @@
               <div class="col-4 text-left">
                 <input class="btn btn-info mt-2 ml-0" type="submit" value="Sign In">
               </div>
-              <div class="col-8 pr-1 pt-1">
-                
-                  Don't have an account? <br>
-                  <a href="/signup">Just sign up!</a>
-              </div>
+              
+              <% if(!admin){ %>
+                <div class="col-8 pr-1 pt-1">                
+                    Don't have an account? <br>
+                    <a href="/signup">Just sign up!</a>
+                </div>
+              <% } %>
+              
             </div>
             
           </div>
