@@ -106,13 +106,13 @@ passport.deserializeUser(function(id, done) { //gets id from cookie and then use
     username:"ibe@gmail",
     password:"123",
     coordinates:{
-        latitude: "13.286486,",
+        latitude: "13.286486",
         longitude: "80.586974",
     },
     name : "Indian BioEnergy",
     addr: "Concorde Towers, UB City, 1 Vittal Mallya Road, Level 15, Bengaluru, Karnataka",
     pinCode:"560001", 
-});
+}); 
 
 factory.save(); */
 
@@ -193,7 +193,7 @@ app.post("/newReq",(req,res)=>{
                 url:"https://maps.googleapis.com/maps/api/distancematrix/json",
                 qs:{
                     origins:`${req.user.pincode}`,
-                    destinations:`${factory.coordinates.latitude}, ${factory.coordinates.longitude}`,
+                    destinations:`${factory.pinCode}`,
                     language:"en-US",
                     key:process.env.GOOGLE_API_KEY
                 },
@@ -223,7 +223,7 @@ app.post("/newReq",(req,res)=>{
                         let min = {
                             distance:distances[0].distance,
                             factoryId: distances[0].factoryId,
-                            factoryName: distances[0].name
+                            factoryName: distances[0].factoryName
                         };
 
                         for(let i=1;i<distances.length;i++){
@@ -238,6 +238,8 @@ app.post("/newReq",(req,res)=>{
                             res.redirect('/user');
                         }else{
                                 console.log("Assigned Factory" + min.factoryName);
+                                console.log("Assigned Factory ID" + min.factoryId);
+                                console.log("Assigned Factory distance" + min.distance);
                                 const oilRequest = new Request({
                                 dateOfPickup: pickupRequest.dateOfPickup,
                                 dateOfRequest:new Date(),
